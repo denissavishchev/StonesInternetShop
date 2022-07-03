@@ -3,7 +3,7 @@ import 'package:stones/auth_widget.dart';
 import 'package:stones/main_screen_widget.dart';
 
 void main() {
-  runApp(Stones());
+  runApp(const Stones());
 }
 
 class Stones extends StatelessWidget {

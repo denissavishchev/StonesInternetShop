@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:stones/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:stones/items_widget.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
@@ -20,12 +21,14 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
   ];
 
   static List mycolors = <Color>[
+    Colors.black,
+    Colors.white,
     Colors.red,
     Colors.blue,
     Colors.green,
     Colors.purple,
     Colors.orange,
-    Colors.indigo,
+    Colors.yellowAccent,
   ];
   Color primaryColor = mycolors[0];
 
@@ -37,14 +40,19 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
         child: Container(
           color: Colors.red,
           child: Scaffold(
-            appBar: AppBar(
-              title: const Center(
-                child: Text(
-                  'Stones',
-                  style: TextStyle(
-                    fontFamily: '28days',
-                    fontSize: 40,
-                    color: Colors.white,
+            appBar: PreferredSize(
+              preferredSize: const Size.fromHeight(40),
+              child: AppBar(
+                title: Container(
+                  height: 40,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'Stones',
+                    style: TextStyle(
+                      fontFamily: '28days',
+                      fontSize: 40,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
@@ -55,7 +63,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
                 colors: [
-                  Colors.lightGreenAccent,
+                  Colors.deepPurple,
                   Colors.white,
                 ],
               )),
@@ -64,7 +72,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
               child: Column(
                 children: [
                   Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: CarouselSlider.builder(
                       options: CarouselOptions(
                           height: 120, viewportFraction: 1, autoPlay: true),
@@ -76,17 +84,25 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                       },
                     ),
                   ),
-                  buildColorIcons(),
                   Container(
-                    margin: const EdgeInsets.symmetric(vertical: 10),
-                    child: const Text(
-                      'Text!',
-                      style: TextStyle(
-                        fontFamily: '28days',
-                        fontSize: 80,
-                        color: Colors.red,
-                      ),
+                    margin: const EdgeInsets.symmetric(horizontal: 10),
+                    child: DecoratedBox(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(color: Colors.deepOrange.withOpacity(0.5)),
+                            boxShadow: [
+                        BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                      blurRadius: 8,
+                      // offset: const Offset(5, 2),
                     ),
+                    ],
+                        ),
+                        child: buildColorIcons()),
+                  ),
+                  const SizedBox(height: 5,),
+                  const Expanded(
+                    child: ItemsWidget(),
                   ),
                 ],
               ),
@@ -98,32 +114,42 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
   }
 
   Widget buildColorIcons() => Row(
-    children: [for (var i = 0; i < 6; i++) buildIconBtn(mycolors[i])],
+    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    children: [for (var i = 0; i < 8; i++) buildIconBtn(mycolors[i])],
   );
 
   Widget buildIconBtn(Color myColor) => Container(
     child: Stack(
       children: [
         Positioned(
-          top: 14,
-          left: 14,
+          top: 6,
+          left: 6,
           child: Icon(
-            Icons.circle,
+            Icons.circle_outlined,
             size: 20,
-            color: primaryColor == myColor ? Colors.black : Colors.transparent,
+            color: primaryColor == myColor ? Colors.deepOrangeAccent : Colors.transparent,
           ),
         ),
-        IconButton(
-          icon: Icon(
-            Icons.circle,
-            color: myColor.withOpacity(0.65),
-            size: 30,
+        SizedBox(
+          height: 30,
+          width: 30,
+          child: IconButton(
+            icon: Icon(
+              Icons.circle,
+              color: myColor.withOpacity(0.65),
+              size: 16,
+            ),
+            onPressed: () {
+              setState(() {
+                if( primaryColor == myColor) {
+                  primaryColor = myColor.withOpacity(0.0);
+                }
+                else {
+                  primaryColor = myColor;
+                }
+              });
+            },
           ),
-          onPressed: () {
-            setState(() {
-              primaryColor = myColor;
-            });
-          },
         ),
       ],
     ),
@@ -134,16 +160,13 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
 
 
 Widget buildImage(String photos, int index) {
-  return ClipRRect(
-    // borderRadius: BorderRadius.circular(20),
-    child: Container(
-      margin: EdgeInsets.symmetric(horizontal: 8),
-      color: Colors.grey,
-      width: double.infinity,
-      child: Image.asset(
-        photos,
-        fit: BoxFit.cover,
-      ),
+  return Container(
+    margin: const EdgeInsets.symmetric(horizontal: 10),
+    color: Colors.grey,
+    width: double.infinity,
+    child: Image.asset(
+      photos,
+      fit: BoxFit.cover,
     ),
   );
 }
