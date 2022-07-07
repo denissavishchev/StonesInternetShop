@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:stones/boxes.dart';
 import 'package:stones/colors.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:stones/items_widget.dart';
+
+import 'model/items.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
@@ -34,6 +39,13 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
 
   @override
   Widget build(BuildContext context) {
+
+    void add() {
+        setState(() {
+          Navigator.of(context).pushNamed('/add_item_screen');
+        });
+    }
+
     return MaterialApp(
       title: 'Stones',
       home: SafeArea(
@@ -43,6 +55,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(40),
               child: AppBar(
+                backgroundColor: darkBlue,
                 title: Container(
                   height: 40,
                   alignment: Alignment.center,
@@ -59,14 +72,9 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
             ),
             body: Container(
               decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [
-                  Colors.deepPurple,
-                  Colors.white,
-                ],
-              )),
+                image: DecorationImage(
+                    image: AssetImage('assets/images/surr.png'),
+                    fit: BoxFit.cover),),
               width: double.infinity,
               height: double.infinity,
               child: Column(
@@ -92,20 +100,31 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                           border: Border.all(color: Colors.deepOrange.withOpacity(0.5)),
                             boxShadow: [
                         BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
+                        color: Colors.white.withOpacity(0.2),
                       blurRadius: 8,
-                      // offset: const Offset(5, 2),
+                      offset: const Offset(-5, 2),
                     ),
                     ],
                         ),
                         child: buildColorIcons()),
                   ),
                   const SizedBox(height: 5,),
-                  const Expanded(
-                    child: ItemsWidget(),
+                  Expanded(
+                    // child: ItemsWidget(),
+                    child: ValueListenableBuilder<Box<Items>>(
+                      valueListenable: Boxes.getItems().listenable(),
+                      builder: (context, box, _) {
+                        final build = box.values.toList().cast<Items>();
+                        return ItemsWidget(build);
+                      },
+                    ),
                   ),
                 ],
               ),
+            ),
+            floatingActionButton: FloatingActionButton(
+              onPressed: add,
+              child: const Icon(Icons.add),
             ),
           ),
         ),

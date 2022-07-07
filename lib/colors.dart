@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
-const buttonsColor = Color(0xffBFC9CA);//grey
-const splashColor = Color(0xffD6E2E0);//grey-green
-const otherButtonsColor = Color(0xff8AB6A9);//green
+const darkBlue = Color(0xff0D2DA2);
+const lightBlue = Color(0xff4F93FE);
+const darkWhite = Color(0xffFFFFDB);
+const darkYellow = Color(0xffFDEA6E);
+const darkGrey = Color(0xff7F7F80);

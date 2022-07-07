@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:stones/auth_widget.dart';
 import 'package:stones/main_screen_widget.dart';
+import 'package:stones/add_item_widget.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:stones/model/items.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(ItemsAdapter());
+  await Hive.openBox<Items>('items');
+
   runApp(const Stones());
 }
 
@@ -17,6 +28,7 @@ class Stones extends StatelessWidget {
       routes: {
         '/auth': (context) => AuthWidget(),
         '/main_screen': (context) => MainScreenWidget(),
+        '/add_item_screen': (context) => AddScreenWidget(),
       },
       initialRoute: '/auth',
 

@@ -9,12 +9,10 @@ class AuthWidget extends StatefulWidget {
   State<AuthWidget> createState() => _AuthWidgetState();
 }
 
-
-
 class _AuthWidgetState extends State<AuthWidget> {
 
-  final _loginTextController = TextEditingController();
-  final _passwordTextController = TextEditingController();
+  final _loginTextController = TextEditingController(text: 'admin');
+  final _passwordTextController = TextEditingController(text: 'admin');
   String? errorText = null;
 
   void _auth() {
@@ -43,7 +41,14 @@ class _AuthWidgetState extends State<AuthWidget> {
     );
 
     const textFieldDecoration = InputDecoration(
+      enabledBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.deepOrange, width: 1),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderSide: BorderSide(color: Colors.deepOrange, width: 2),
+      ),
       border: OutlineInputBorder(),
+
       contentPadding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       isCollapsed: true,
     );
@@ -54,14 +59,9 @@ class _AuthWidgetState extends State<AuthWidget> {
       title: 'Stones and Woods',
       home: Container(
         decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                Colors.deepPurple,
-                Colors.white,
-              ],
-            ),
+            image: DecorationImage(
+                image: AssetImage('assets/images/surr.png'),
+            fit: BoxFit.cover),
         ),
         child: Scaffold(
           backgroundColor: Colors.transparent,
@@ -94,12 +94,16 @@ class _AuthWidgetState extends State<AuthWidget> {
                 TextField(
                   controller: _loginTextController,
                   decoration: textFieldDecoration,
+                  style: const TextStyle(color: Colors.white),
+                  cursorColor: Colors.deepOrange,
                 ),
                 const SizedBox(height: 20,),
                 const Text('Password:', style: textStyle,),
                 TextField(
                   controller: _passwordTextController,
                   decoration: textFieldDecoration,
+                  style: const TextStyle(color: Colors.white),
+                  cursorColor: Colors.deepOrange,
                 ),
                 const SizedBox(height: 20,),
                 Row(
@@ -131,7 +135,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                     TextButton(
                         onPressed: () {},
                         style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all(Colors.black),
+                          foregroundColor: MaterialStateProperty.all(Colors.white),
                         ),
                         child: const Text('Reset Password')),
                   ],
