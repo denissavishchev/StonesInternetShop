@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:stones/colors.dart';
 
 
 class AuthWidget extends StatefulWidget {
@@ -42,10 +43,10 @@ class _AuthWidgetState extends State<AuthWidget> {
 
     const textFieldDecoration = InputDecoration(
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.deepOrange, width: 1),
+        borderSide: BorderSide(color: beachBlue, width: 1),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: Colors.deepOrange, width: 2),
+        borderSide: BorderSide(color: beachBlue, width: 2),
       ),
       border: OutlineInputBorder(),
 
@@ -60,15 +61,16 @@ class _AuthWidgetState extends State<AuthWidget> {
       home: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('assets/images/surr.png'),
+                image: AssetImage('assets/images/bg.png'),
             fit: BoxFit.cover),
         ),
         child: Scaffold(
+          resizeToAvoidBottomInset: false,
           backgroundColor: Colors.transparent,
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(40),
             child: AppBar(
-              backgroundColor: Colors.indigo,
+              backgroundColor: beachTurquoise,
               title: Container(
                 height: 40,
                 // color: Colors.indigo,
@@ -83,11 +85,23 @@ class _AuthWidgetState extends State<AuthWidget> {
             ),
           ),
           body: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 80),
             padding: const EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(color: beachTurquoise.withOpacity(0.7)),
+              boxShadow: [
+                BoxShadow(
+                  color: beachSand.withOpacity(0.4),
+                  // blurRadius: 8,
+                  // offset: const Offset(-5, 2),
+                ),
+              ],
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 20,),
+                const SizedBox(height: 100,),
                 if (errorText !=null) Text(errorText, style: const TextStyle(color: Colors.red),),
                 const SizedBox(height: 20,),
                 const Text('Username:', style: textStyle,),
@@ -95,7 +109,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                   controller: _loginTextController,
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
-                  cursorColor: Colors.deepOrange,
+                  cursorColor: beachBlue,
                 ),
                 const SizedBox(height: 20,),
                 const Text('Password:', style: textStyle,),
@@ -103,7 +117,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                   controller: _passwordTextController,
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
-                  cursorColor: Colors.deepOrange,
+                  cursorColor:beachBlue,
                 ),
                 const SizedBox(height: 20,),
                 Row(
@@ -111,7 +125,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                     TextButton(
                         onPressed: _auth,
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.deepOrange),
+                          backgroundColor: MaterialStateProperty.all(beachBlue),
                           foregroundColor: MaterialStateProperty.all(Colors.white),
                           textStyle: MaterialStateProperty.all(
                             const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -123,7 +137,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                     TextButton(
                         onPressed: () {},
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.deepOrange.withOpacity(0.8)),
+                            backgroundColor: MaterialStateProperty.all(beachBlue),
                             foregroundColor: MaterialStateProperty.all(Colors.white),
                             textStyle: MaterialStateProperty.all(
                               const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -131,13 +145,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                             padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 10, vertical: 5))
                         ),
                         child: const Text('Register')),
-                    const SizedBox(width: 30,),
-                    TextButton(
-                        onPressed: () {},
-                        style: ButtonStyle(
-                          foregroundColor: MaterialStateProperty.all(Colors.white),
-                        ),
-                        child: const Text('Reset Password')),
+
                   ],
                 ),
               ],
