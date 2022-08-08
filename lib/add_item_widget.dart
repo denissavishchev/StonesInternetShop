@@ -1,69 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:stones/items/items_widget_model.dart';
 import 'package:stones/items_widget.dart';
 import 'package:stones/colors.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:stones/add_item_widget_model.dart';
 
 
 class AddScreenWidget extends StatefulWidget {
   const AddScreenWidget({Key? key}) : super(key: key);
 
+
+
   @override
-  State<AddScreenWidget> createState() => _AddScreenWidgetState();
+  State<AddScreenWidget> createState() => AddScreenWidgetState();
 }
 
-class _AddScreenWidgetState extends State<AddScreenWidget> {
-  final _model = AddItemWidgetModel();
+class AddScreenWidgetState extends State<AddScreenWidget> {
+
 
   @override
   Widget build(BuildContext context) {
-    return AddItemWidgetModelProvider(
-        model: _model,
-        child: const _AddScreenWidgetBody());
-  }
-}
-
-// Future addItems(String stoneImage, String stoneColor, double stonePrice, String stoneLocation ) async {
-//   final transaction = Items()
-//     ..stoneImage = stoneImage
-//     ..stoneColor = stoneColor
-//     ..stonePrice = stonePrice
-//     ..stoneLocation = stoneLocation
-//     ..createdDate = DateTime.now();
-//
-//   final box = Boxes.getItems();
-//   box.add(transaction);
-//   print('object');
-//   print(box);
-//
-// }
-
-class _AddScreenWidgetBody extends StatefulWidget {
-  const _AddScreenWidgetBody({Key? key}) : super(key: key);
-
-  @override
-  State<_AddScreenWidgetBody> createState() => _AddScreenWidgetBodyState();
-}
-
-class _AddScreenWidgetBodyState extends State<_AddScreenWidgetBody> {
-  final _model = ItemsWidgetModel();
-
-  @override
-  Widget build(BuildContext context) {
-    return ItemsWidgetModelProvider(
-      model: _model,
-        child: const _ItemsWidgetBody());
-  }
-}
-
-class _ItemsWidgetBody extends StatelessWidget {
-  const _ItemsWidgetBody({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    final model = AddItemWidgetModelProvider.read(context)?.model;
 
     final _imageTextController = TextEditingController();
     final _nameTextController = TextEditingController();
@@ -94,23 +49,6 @@ class _ItemsWidgetBody extends StatelessWidget {
       Navigator.of(context).pushNamed('/main_screen');
       // });
     }
-
-
-    // void addItems(String stoneImage, String stoneColor, double stonePrice, String stoneLocation ) async {
-    //   final transaction = Items()
-    //     ..stoneImage = stoneImage
-    //     ..stoneColor = stoneColor
-    //     ..stonePrice = stonePrice
-    //     ..stoneLocation = stoneLocation
-    //     ..createdDate = DateTime.now();
-    //
-    //   final box = Boxes.getItems();
-    //   box.add(transaction);
-    //   print('object');
-    //   print(box);
-    // }
-
-
 
     return MaterialApp(
       title: 'Stones',
@@ -176,8 +114,7 @@ class _ItemsWidgetBody extends StatelessWidget {
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
-                  onChanged: (value) => model?.imageStone = value,
-                  onEditingComplete: () => model?.addStone(context),
+
                 ),
                 const SizedBox(height: 20),
                 const Text('Name:', style: textStyle,),
@@ -186,8 +123,7 @@ class _ItemsWidgetBody extends StatelessWidget {
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
-                  onChanged: (value) => model?.nameStone = value,
-                  onEditingComplete: () => model?.addStone(context),
+
                 ),
                 const SizedBox(height: 20,),
                 const Text('Color:', style: textStyle,),
@@ -196,8 +132,7 @@ class _ItemsWidgetBody extends StatelessWidget {
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
-                  onChanged: (value) => model?.colorStone = value,
-                  onEditingComplete: () => model?.addStone(context),
+
                 ),
                 const SizedBox(height: 20,),
                 const Text('Price:', style: textStyle,),
@@ -206,8 +141,7 @@ class _ItemsWidgetBody extends StatelessWidget {
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
-                  onChanged: (value) => model?.priceStone = value,
-                  onEditingComplete: () => model?.addStone(context),
+
                 ),
                 const SizedBox(height: 20,),
                 const Text('Location:', style: textStyle,),
@@ -216,12 +150,11 @@ class _ItemsWidgetBody extends StatelessWidget {
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
-                  onChanged: (value) => model?.locationStone = value,
-                  onEditingComplete: () => model?.addStone(context),
+
                 ),
                 const SizedBox(height: 20,),
                 TextButton(
-                    onPressed: () => ItemsWidgetModelProvider.read(context)?.model.add(context),
+                    onPressed: () {},
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(beachGreen),
                         foregroundColor: MaterialStateProperty.all(Colors.white),

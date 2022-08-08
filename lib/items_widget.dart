@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:hive/hive.dart';
 import 'package:stones/colors.dart';
-import 'package:stones/items/items_widget_model.dart';
+
 
 
 class ItemsWidget extends StatefulWidget {
@@ -25,18 +25,18 @@ class ItemsWidgetState extends State<ItemsWidget> {
 
    int basket = 1;
 
-  @override
-  void dispose() {
-    Hive.close();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   Hive.close();
+  //   super.dispose();
+  // }
 
   @override
 
   Widget build(BuildContext context) {
-    final itemsCount = ItemsWidgetModelProvider.watch(context)?.model.items.length ?? 0;
+    // final itemsCount = ItemsWidgetModelProvider.watch(context)?.model.items.length ?? 0;
     return ListView.builder(
-        itemCount: itemsCount,
+        itemCount: 10,
         itemExtent: 105.5,
         itemBuilder: (BuildContext context, int index) {
       return Padding(
@@ -73,7 +73,7 @@ class ItemsWidgetState extends State<ItemsWidget> {
                                 children:  [
                                   const SizedBox(height: 5,),
                                   Text('Name: $stoneName',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                  style: const TextStyle(fontWeight: FontWeight.bold),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,),
                                   const SizedBox(height: 5,),
