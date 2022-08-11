@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:stones/items_widget.dart';
+import 'package:stones/boxes.dart';
 import 'package:stones/colors.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:stones/models/stones.dart';
 
 
 class AddScreenWidget extends StatefulWidget {
@@ -26,6 +27,12 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
     final _priceTextController = TextEditingController();
     final _locationTextController = TextEditingController();
 
+    late String stoneImage;
+    late String stoneName;
+    late String stoneColor;
+    late String stonePrice;
+    late String stoneLocation;
+
     const textStyle = TextStyle(
       fontSize: 16,
       color: Colors.white,
@@ -48,6 +55,19 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
       // setState(() {
       Navigator.of(context).pushNamed('/main_screen');
       // });
+    }
+
+    void _onFormSubmit() {
+      Box<Stone> stonesBox = Hive.box<Stone>(HiveBoxes.stones);
+      stonesBox.add(Stone(image: stoneImage,
+                            name: stoneName,
+                            color: stoneColor,
+                            price: stonePrice,
+                            location: stoneLocation));
+      Navigator.of(context).pushNamed('/main_screen');
+
+      print(stonesBox);
+
     }
 
     return MaterialApp(
@@ -111,10 +131,12 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
                 const Text('Image:', style: textStyle,),
                 TextField(
                   controller: _imageTextController,
-                  decoration: textFieldDecoration,
+                  decoration: textFieldDecoration.copyWith(hintText: '1-6'),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
-
+                  onChanged: (value) {
+                    stoneImage = 'assets/images/stone0' + value + '.jpeg';
+                  },
                 ),
                 const SizedBox(height: 20),
                 const Text('Name:', style: textStyle,),
@@ -123,7 +145,9 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
-
+                  onChanged: (value) {
+                    stoneName = value;
+                  },
                 ),
                 const SizedBox(height: 20,),
                 const Text('Color:', style: textStyle,),
@@ -132,7 +156,9 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
-
+                  onChanged: (value) {
+                    stoneColor = value;
+                  },
                 ),
                 const SizedBox(height: 20,),
                 const Text('Price:', style: textStyle,),
@@ -141,7 +167,9 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
-
+                  onChanged: (value) {
+                    stonePrice = value;
+                  },
                 ),
                 const SizedBox(height: 20,),
                 const Text('Location:', style: textStyle,),
@@ -150,11 +178,15 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
-
+                  onChanged: (value) {
+                    stoneLocation = value;
+                  },
                 ),
                 const SizedBox(height: 20,),
                 TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      _onFormSubmit();
+                    },
                     style: ButtonStyle(
                         backgroundColor: MaterialStateProperty.all(beachGreen),
                         foregroundColor: MaterialStateProperty.all(Colors.white),
@@ -172,3 +204,4 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
     );
   }
 }
+
