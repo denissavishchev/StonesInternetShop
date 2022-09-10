@@ -7,6 +7,8 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stones/models/stones.dart';
 
+import 'item_page.dart';
+
 void main()  async {
 
   await Hive.initFlutter();
@@ -21,12 +23,14 @@ class Stones extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Stones',
 
       routes: {
         '/auth': (context) => const AuthWidget(),
         '/main_screen': (context) => const MainScreenWidget(),
         '/add_item_screen': (context) => AddScreenWidget(),
+        '/item_page': (context) => ItemPage(),
       },
       initialRoute: '/auth',
     );

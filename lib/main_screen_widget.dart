@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stones/colors.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:stones/items_widget.dart';
+import 'package:stones/sidebar_tiles.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
@@ -13,14 +13,14 @@ class MainScreenWidget extends StatefulWidget {
 }
 
 class _MainScreenWidgetState extends State<MainScreenWidget> {
-  final photos = [
-    'assets/images/stone01.jpeg',
-    'assets/images/stone02.jpeg',
-    'assets/images/stone03.jpeg',
-    'assets/images/stone04.jpeg',
-    'assets/images/stone05.jpeg',
-    'assets/images/stone06.jpeg',
-  ];
+  // final photos = [
+  //   'assets/images/stone01.png',
+  //   'assets/images/stone02.png',
+  //   'assets/images/stone03.png',
+  //   'assets/images/stone04.png',
+  //   'assets/images/stone05.png',
+  //   'assets/images/stone06.png',
+  // ];
 
   static List mycolors = <Color>[
     Colors.black,
@@ -64,9 +64,8 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                   height: 40,
                   alignment: Alignment.center,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children:[
-                      const SizedBox(width: 130,),
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
                        const Text(
                         'Stones',
                         style: TextStyle(
@@ -75,25 +74,39 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                           color: Colors.white,
                         ),
                       ),
-                      const SizedBox(width: 40,),
-                      Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(7),
-                            color: beachSand.withOpacity(0.5),
-                        ),
-                        child: IconButton(
-                          padding: const EdgeInsets.only(bottom: 1),
-                            onPressed: back,
-                            icon: const Icon(
-                              Icons.logout,
-                              color: beachGreen,
-                              size: 32,
-                            ),
-                        ),
+                      IconButton(icon: const Icon(Icons.shopping_basket_outlined, ), onPressed: () {},),
+                      ElevatedButton(
+                        onPressed: () => Navigator.of(context).pushNamed('/item_page'),
+                        child: const Icon(Icons.add_box_outlined),
                       ),
                     ],
                   ),
                 ),
+              ),
+            ),
+            drawer: Drawer(
+              width: 150,
+              backgroundColor: beachGreen.withOpacity(0.5),
+              child: ListView(
+                children: <Widget>[
+                  DrawerHeader(
+                    decoration: const BoxDecoration(
+                      gradient: LinearGradient(colors: [
+                        beachTurquoise,
+                        beachGreen
+                      ],
+                      ),
+                    ),
+                    child: Material(
+                      color: Colors.transparent,
+                      borderRadius: const BorderRadius.all(Radius.circular(70),),
+                        elevation: 15,
+                        child: Image.asset('assets/images/stone05.png')),),
+                  SidebarTile(icon: Icons.person, text: 'Profile', onTap: (){}),
+                  SidebarTile(icon: Icons.favorite, text: 'Favourites', onTap: (){}),
+                  SidebarTile(icon: Icons.bug_report_outlined, text: 'Bugs', onTap: (){}),
+                  SidebarTile(icon: Icons.logout, text: 'Log Out', onTap: back),
+                ],
               ),
             ),
             body: Container(
@@ -106,16 +119,10 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
               child: Column(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: CarouselSlider.builder(
-                      options: CarouselOptions(
-                          height: 100, viewportFraction: 1, autoPlay: true),
-                      itemCount: photos.length,
-                      itemBuilder: (context, index, realIndex) {
-                        final photo = photos[index];
-                        return buildImage(photo, index);
-                      },
-                    ),
+                    margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                    color: Colors.white,
+                    width: MediaQuery.of(context).size.width,
+                    height: 50,
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -138,7 +145,6 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                   Expanded(
                     child: ItemsWidget(),
                   ),
-
                 ],
               ),
             ),
@@ -146,18 +152,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 const SizedBox(width: 20,),
-                // FloatingActionButton(
-                //     heroTag: "btn1",
-                //   onPressed: () {
-                //     print('Basket');
-                //   },
-                //   backgroundColor: beachGreen,
-                //   child: const Icon(Icons.shopping_basket),
-                // ),
-                basket(),
-                const SizedBox(width: 20,),
                 FloatingActionButton(
-                  heroTag: "btn2",
                   onPressed: add,
                   backgroundColor: beachGreen,
                   child: const Icon(Icons.add),
@@ -227,32 +222,5 @@ Widget buildImage(String photos, int index) {
   );
 }
 
-Widget basket() => Stack(
-  children: [
 
-    FloatingActionButton(
-      backgroundColor: beachGreen,
-      child: const Icon(
-        Icons.shopping_basket,
-
-      ),
-      onPressed:
-      (){}
-
-    ),
-    Positioned(
-        top: 2,
-        left: 2,
-        child: Container(
-          alignment: Alignment.center,
-          width: 20,
-            height: 20,
-            decoration: const BoxDecoration(
-              color: beachSand,
-              shape: BoxShape.circle,
-            ),
-            child: const Text('12'))
-    ),
-  ],
-);
 

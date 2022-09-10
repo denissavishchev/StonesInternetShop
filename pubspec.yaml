@@ -43,6 +43,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
   path_provider: ^2.0.11
+  percent_indicator: ^4.2.2
 
 
 dev_dependencies:
@@ -89,6 +90,10 @@ flutter:
     - family: 28days
       fonts:
         - asset: assets/fonts/28days.ttf
+          style: italic
+    - family: Combo
+      fonts:
+        - asset: assets/fonts/Combo.ttf
           style: italic
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

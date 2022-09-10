@@ -135,7 +135,7 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
                   onChanged: (value) {
-                    stoneImage = 'assets/images/stone0' + value + '.jpeg';
+                    stoneImage = 'assets/images/stone0' + value + '.png';
                   },
                 ),
                 const SizedBox(height: 20),

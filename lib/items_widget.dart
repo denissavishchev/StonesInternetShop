@@ -56,10 +56,9 @@ class ItemsWidgetState extends State<ItemsWidget> {
                     Row(
                       children: [
                         Expanded(
-                          flex: 3,
                           child: Container(
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Colors.white.withOpacity(0.1),
                               borderRadius: const BorderRadius.all(Radius.circular(10)),
                               border: Border.all(color: beachBlue.withOpacity(0.6)),
                               boxShadow: [
@@ -72,50 +71,58 @@ class ItemsWidgetState extends State<ItemsWidget> {
                             ),
                             clipBehavior: Clip.hardEdge,
                             child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 ClipRRect(
                                     borderRadius: BorderRadius.circular(10),
                                     child: Image(image: AssetImage(res!.image))),
                                 const SizedBox(width: 5,),
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children:  [
-                                      const SizedBox(height: 5,),
-                                      Text(res.name,
-                                        style: const TextStyle(fontWeight: FontWeight.bold),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,),
-                                      const SizedBox(height: 5,),
-                                      Text(res.color),
-                                      const SizedBox(height: 5,),
-                                      Text(res.price),
-                                      const SizedBox(height: 5,),
-                                      Text(res.location,
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children:  [
+                                    const SizedBox(height: 5,),
+                                    Text(res.name,
+                                      style: const TextStyle(fontWeight: FontWeight.bold),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,),
+                                    const SizedBox(height: 5,),
+                                    Text(res.color),
+                                    const SizedBox(height: 5,),
+                                    Text(res.price),
+                                    const SizedBox(height: 5,),
+                                    Text(res.location,
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,),
+                                  ],
+                                ),
+                                Container(
+                                  margin: const EdgeInsets.only(top: 40, right: 5),
+                                  decoration: const BoxDecoration(
+                                    borderRadius: BorderRadius.only(
+                                      topRight: Radius.circular(5),
+                                      bottomRight: Radius.circular(5),
+                                      topLeft: Radius.circular(30),
+                                      bottomLeft: Radius.circular(30)
+                                    ),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        spreadRadius: 3,
+                                        blurRadius: 10,
+                                        offset: Offset(3, 3),
+                                        color: Colors.white
+                                      ),
+                                    ],
+                                    color: Colors.deepOrange,
+                                  ),
+                                  width: 60,
+                                  height: 30,
+                                  child: Row(
+                                    children: <Widget>[
+                                      Text('Sale'),
+                                      Text('10%')
                                     ],
                                   ),
-                                ),
-
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Container(
-                            margin: const EdgeInsets.only(left: 5),
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: const BorderRadius.all(Radius.circular(10)),
-                              border: Border.all(color: beachBlue.withOpacity(0.6)),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.white.withOpacity(0.5),
-                                  blurRadius: 8,
-                                  offset: const Offset(-4, 2),
-                                ),
+                                )
                               ],
                             ),
                           ),
@@ -130,123 +137,113 @@ class ItemsWidgetState extends State<ItemsWidget> {
                             context: context,
                             builder: (BuildContext context) {
                               return Material(
+
                                 color: Colors.transparent,
                                 child: Stack(
                                   children: [
                                     StatefulBuilder(
                                       builder: (BuildContext context, StateSetter setState) {
-                                        return AlertDialog(
-                                          scrollable: true,
-                                          title: Padding(
-                                              padding: const EdgeInsets.symmetric(horizontal: 4),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                children: [
-                                                  Expanded(
-                                                    child: Text(res.name),
-                                                    flex: 1,),
-                                                  // const SizedBox(width: 80,),
-                                                  const Expanded(
-                                                    flex: 1,
-                                                    child:  SizedBox(
-                                                      width: 70,
-                                                      height: 70,
-                                                      child: Image(image: AssetImage('assets/images/10off.png'),
-                                                          fit: BoxFit.cover),
-                                                    ),
-                                                  ),
-                                                  // const SizedBox(width: 30,),
-                                                  Expanded(
-                                                    flex: 1,
-                                                    child: SizedBox(
-                                                      width: 35,
-                                                      height: 35,
-                                                      child: FloatingActionButton(
-                                                        onPressed: () {
-                                                          Navigator.of(context).pop();
-                                                        },
-                                                        backgroundColor: beachGreen.withOpacity(0.5),
-                                                        child: const Icon(Icons.close,
-                                                          size: 24,),
+                                        return InkWell(
+                                          onTap: () => Navigator.of(context).pop(true),
+                                          child: AlertDialog(
+                                            backgroundColor: Colors.deepOrange,
+                                            scrollable: true,
+                                            title: Padding(
+                                                padding: const EdgeInsets.symmetric(horizontal: 4),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                                  children: [
+                                                    Expanded(
+                                                      child: Text(res.name),
+                                                      flex: 1,),
+                                                    // const SizedBox(width: 80,),
+                                                    const Expanded(
+                                                      flex: 1,
+                                                      child:  SizedBox(
+                                                        width: 70,
+                                                        height: 70,
+                                                        child: Image(image: AssetImage('assets/images/10off.png'),
+                                                            fit: BoxFit.cover),
                                                       ),
                                                     ),
-                                                  ),
-                                                ],
-                                              )),
-                                          content: Form(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.start,
-                                              children: <Widget>[
-                                                ClipRRect(
-                                                    borderRadius: BorderRadius.circular(10),
-                                                    child: Image(image: AssetImage(res.image))),
-                                                const SizedBox(height: 10,),
-                                                Text(res.color),
-                                                const SizedBox(height: 10,),
-                                                Text(res.price),
-                                                const SizedBox(height: 10,),
-                                                Text(res.location),
-                                                const SizedBox(height: 15,),
-                                                Container(
-                                                    padding: const EdgeInsets.all(5),
-                                                    decoration: BoxDecoration(
-                                                      border: Border.all(color: beachBlue, width: 1),
-                                                      borderRadius: BorderRadius.circular(5),
+                                                    // const SizedBox(width: 30,),
+                                                  ],
+                                                )),
+                                            content: Form(
+                                              child: Column(
+                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                children: <Widget>[
+                                                  ClipRRect(
+                                                      borderRadius: BorderRadius.circular(10),
+                                                      child: Image(image: AssetImage(res.image))),
+                                                  const SizedBox(height: 10,),
+                                                  Text(res.color),
+                                                  const SizedBox(height: 10,),
+                                                  Text(res.price),
+                                                  const SizedBox(height: 10,),
+                                                  Text(res.location),
+                                                  const SizedBox(height: 15,),
+                                                  Container(
+                                                      padding: const EdgeInsets.all(5),
+                                                      decoration: BoxDecoration(
+                                                        border: Border.all(color: beachBlue, width: 1),
+                                                        borderRadius: BorderRadius.circular(5),
 
-                                                    ),
-                                                    child: Text(stoneDescription)),
-                                              ],
+                                                      ),
+                                                      child: Text(stoneDescription)),
+                                                ],
+                                              ),
                                             ),
+                                            actions: [
+                                              SizedBox(
+                                                width: 35,
+                                                height: 35,
+                                                child: FloatingActionButton(
+                                                  onPressed: () {
+                                                    setState((){
+                                                      basket--;
+                                                      if (basket <= 1) {
+                                                        basket = 1;
+                                                      }
+                                                    });
+                                                  },
+                                                  backgroundColor: beachGreen,
+                                                  child: const Icon(Icons.remove,
+                                                    size: 20,),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                  width: 20,
+                                                  child: Center(child: Text(basket.toString()))),
+                                              SizedBox(
+                                                width: 35,
+                                                height: 35,
+                                                child: FloatingActionButton(
+                                                  onPressed: () {
+                                                    setState((){
+                                                      basket++;
+                                                    });
+                                                  },
+                                                  backgroundColor: beachGreen,
+                                                  child: const Icon(Icons.add,
+                                                    size: 20,),
+                                                ),
+                                              ),
+                                              const SizedBox(width: 80,),
+                                              SizedBox(
+                                                width: 50,
+                                                height: 50,
+                                                child: FloatingActionButton(
+                                                  onPressed: () {
+                                                    print('basket');
+                                                  },
+                                                  backgroundColor: beachGreen,
+                                                  child: const Icon(Icons.shopping_basket_outlined,
+                                                    size: 24,),
+                                                ),
+                                              ),
+                                            ],
                                           ),
-                                          actions: [
-                                            SizedBox(
-                                              width: 35,
-                                              height: 35,
-                                              child: FloatingActionButton(
-                                                onPressed: () {
-                                                  setState((){
-                                                    basket--;
-                                                    if (basket <= 1) {
-                                                      basket = 1;
-                                                    }
-                                                  });
-                                                },
-                                                backgroundColor: beachGreen,
-                                                child: const Icon(Icons.remove,
-                                                  size: 20,),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                                width: 20,
-                                                child: Center(child: Text(basket.toString()))),
-                                            SizedBox(
-                                              width: 35,
-                                              height: 35,
-                                              child: FloatingActionButton(
-                                                onPressed: () {
-                                                  setState((){
-                                                    basket++;
-                                                  });
-                                                },
-                                                backgroundColor: beachGreen,
-                                                child: const Icon(Icons.add,
-                                                  size: 20,),
-                                              ),
-                                            ),
-                                            const SizedBox(width: 80,),
-                                            SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: FloatingActionButton(
-                                                onPressed: () {
-                                                  print('basket');
-                                                },
-                                                backgroundColor: beachGreen,
-                                                child: const Icon(Icons.shopping_basket_outlined,
-                                                  size: 24,),
-                                              ),
-                                            ),
-                                          ],
                                         );
                                       },
                                     ),
