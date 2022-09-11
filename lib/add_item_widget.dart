@@ -141,7 +141,7 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
                 const Text('Image:', style: textStyle,),
                 TextField(
                   controller: _imageTextController,
-                  decoration: textFieldDecoration.copyWith(hintText: '1-6'),
+                  decoration: textFieldDecoration.copyWith(hintText: '1-15'),
                   style: const TextStyle(color: Colors.white),
                   cursorColor: beachBlue,
                   onChanged: (value) {

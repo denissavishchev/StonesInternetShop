@@ -7,7 +7,6 @@ import 'package:stones/models/stones.dart';
 import 'package:stones/item_page.dart';
 
 
-
 class ItemsWidget extends StatefulWidget {
    ItemsWidget({Key? key}) : super(key: key);
 
@@ -23,6 +22,7 @@ class ItemsWidgetState extends State<ItemsWidget> {
     Hive.close();
     super.dispose();
   }
+
 
   @override
 

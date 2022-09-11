@@ -120,9 +120,61 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                 children: [
                   Container(
                     margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                    color: Colors.white,
+                    color: Colors.black.withOpacity(0.1),
                     width: MediaQuery.of(context).size.width,
                     height: 50,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Column(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(6, 0, 2, 0),
+                              decoration: BoxDecoration(
+                                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: Colors.white.withOpacity(0.2),
+                                    blurRadius: 3,
+                                    spreadRadius: 3,
+                                  )
+                                ]
+                              ),
+                              child: const Text('the best Stones from the Earth and not only...',
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                            ),
+                            const SizedBox(height: 10,),
+                            Container(
+                              padding: const EdgeInsets.fromLTRB(6, 0, 2, 0),
+                              decoration: BoxDecoration(
+                                  borderRadius: const BorderRadius.all(Radius.circular(20)),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.white.withOpacity(0.1),
+                                      blurRadius: 3,
+                                      spreadRadius: 3,
+                                    )
+                                  ]
+                              ),
+                              child: Row(
+                                children: const [
+                                  SizedBox(width: 180,),
+                                  Text('Hello: ',
+                                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
+                                  Text('Devis', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 20),),
+
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(width: 10,),
+                        CircleAvatar(
+                          radius: 25,
+                            backgroundColor: Colors.grey.withOpacity(0.3),
+                            child: IconButton(onPressed: () {}, icon: Icon(Icons.shopping_basket_outlined, color: Colors.white,)))
+                      ],
+                    ),
                   ),
                   Container(
                     margin: const EdgeInsets.symmetric(horizontal: 10),
@@ -150,7 +202,76 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                   ),
                   Expanded(
                       child: Container(
-                        color: Colors.grey,
+                        color: Colors.transparent,
+                        child: Stack(
+                          children: [
+                            Image.asset('assets/images/map.png'),
+                            Positioned(
+                              top: 35,
+                                left: 210,
+                                child: CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.grey.withOpacity(0.6),
+                                  child: Image.asset('assets/images/stone09.png'),
+
+                                )),
+                            Positioned(
+                                top: 100,
+                                left: 250,
+                                child: CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.grey.withOpacity(0.6),
+                                  child: Image.asset('assets/images/stone013.png'),
+
+                                )),
+                            Positioned(
+                                top: 15,
+                                left: 110,
+                                child: CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.grey.withOpacity(0.6),
+                                  child: Image.asset('assets/images/stone012.png'),
+
+                                )),
+                            Positioned(
+                                top: 35,
+                                left: 50,
+                                child: CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.grey.withOpacity(0.6),
+                                  child: Image.asset('assets/images/stone07.png'),
+
+                                )),
+                            Positioned(
+                                top: 10,
+                                left: 30,
+                                child: CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.grey.withOpacity(0.6),
+                                  child: Image.asset('assets/images/stone06.png'),
+
+                                )),
+                            Positioned(
+                                top: 75,
+                                left: 40,
+                                child: CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.grey.withOpacity(0.6),
+                                  child: Image.asset('assets/images/stone011.png'),
+
+                                )),
+                            Positioned(
+                                top: 10,
+                                left: 180,
+                                child: CircleAvatar(
+                                  radius: 15,
+                                  backgroundColor: Colors.grey.withOpacity(0.6),
+                                  child: Image.asset('assets/images/stone014.png'),
+
+                                )),
+
+                          ],
+                        ),
                       ))
                 ],
               ),
