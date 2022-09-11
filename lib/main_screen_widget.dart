@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:stones/add_button.dart';
 import 'package:stones/colors.dart';
 import 'package:stones/items_widget.dart';
 import 'package:stones/sidebar_tiles.dart';
+
+import 'add_item_widget.dart';
+import 'auth_widget.dart';
 
 class MainScreenWidget extends StatefulWidget {
   const MainScreenWidget({Key? key}) : super(key: key);
@@ -13,14 +17,6 @@ class MainScreenWidget extends StatefulWidget {
 }
 
 class _MainScreenWidgetState extends State<MainScreenWidget> {
-  // final photos = [
-  //   'assets/images/stone01.png',
-  //   'assets/images/stone02.png',
-  //   'assets/images/stone03.png',
-  //   'assets/images/stone04.png',
-  //   'assets/images/stone05.png',
-  //   'assets/images/stone06.png',
-  // ];
 
   static List mycolors = <Color>[
     Colors.black,
@@ -39,13 +35,19 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
 
     void add() {
         setState(() {
-          Navigator.of(context).pushNamed('/add_item_screen');
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddScreenWidget()),
+          );
         });
     }
 
     void back() {
       setState(() {
-        Navigator.of(context).pushNamed('/auth');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AuthWidget()),
+        );
       });
     }
 
@@ -59,26 +61,24 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
             appBar: PreferredSize(
               preferredSize: const Size.fromHeight(40),
               child: AppBar(
-                backgroundColor: beachTurquoise,
+                backgroundColor: Colors.black,
                 title: Container(
                   height: 40,
                   alignment: Alignment.center,
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
+                      const SizedBox(width: 60,),
                        const Text(
                         'Stones',
                         style: TextStyle(
-                          fontFamily: '28days',
+                          fontFamily: 'Combo',
                           fontSize: 40,
                           color: Colors.white,
+                          fontWeight: FontWeight.bold
                         ),
                       ),
-                      IconButton(icon: const Icon(Icons.shopping_basket_outlined, ), onPressed: () {},),
-                      ElevatedButton(
-                        onPressed: () => Navigator.of(context).pushNamed('/item_page'),
-                        child: const Icon(Icons.add_box_outlined),
-                      ),
+                      const SizedBox(width: 50,),
+                      AddButton(title: 'Add', onPressed: add)
                     ],
                   ),
                 ),
@@ -142,23 +142,18 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                   ),
 
                   const SizedBox(height: 5,),
-                  Expanded(
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 480,
+                    color: Colors.transparent,
                     child: ItemsWidget(),
                   ),
+                  Expanded(
+                      child: Container(
+                        color: Colors.grey,
+                      ))
                 ],
               ),
-            ),
-            floatingActionButton: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                const SizedBox(width: 20,),
-                FloatingActionButton(
-                  onPressed: add,
-                  backgroundColor: beachGreen,
-                  child: const Icon(Icons.add),
-                ),
-                const SizedBox(width: 20,),
-              ],
             ),
           ),
         ),

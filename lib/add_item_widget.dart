@@ -5,6 +5,8 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stones/models/stones.dart';
 
+import 'main_screen_widget.dart';
+
 
 class AddScreenWidget extends StatefulWidget {
   const AddScreenWidget({Key? key}) : super(key: key);
@@ -52,9 +54,12 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
     );
 
     void back() {
-      // setState(() {
-      Navigator.of(context).pushNamed('/main_screen');
-      // });
+      {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MainScreenWidget()),
+        );
+      }
     }
 
     void _onFormSubmit() {
@@ -64,7 +69,12 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
                             color: stoneColor,
                             price: stonePrice,
                             location: stoneLocation));
-      Navigator.of(context).pushNamed('/main_screen');
+      {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MainScreenWidget()),
+        );
+      };
 
       print(stonesBox);
 

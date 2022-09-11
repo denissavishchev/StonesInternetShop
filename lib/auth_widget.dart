@@ -2,6 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:stones/colors.dart';
 
+import 'main_screen_widget.dart';
+
 
 class AuthWidget extends StatefulWidget {
   const AuthWidget({Key? key}) : super(key: key);
@@ -21,7 +23,10 @@ class _AuthWidgetState extends State<AuthWidget> {
     final password = _passwordTextController.text;
     if (login == 'admin' && password == 'admin') {
       setState(() {
-        Navigator.of(context).pushNamed('/main_screen');
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const MainScreenWidget()),
+        );
       });
     }
     else {

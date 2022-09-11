@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'colors.dart';
+import 'main_screen_widget.dart';
 
 class ItemPage extends StatefulWidget {
   ItemPage({Key? key}) : super(key: key);
@@ -47,7 +48,12 @@ class _ItemPageState extends State<ItemPage> {
                   children: [
                     // onPressed: () => Navigator.of(context).pushNamed('/main_screen'),
                     IconButton(
-                        onPressed: () => Navigator.of(context).pushNamed('/main_screen'),
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>  MainScreenWidget()),
+                          );
+                        },
                         icon: const Icon(Icons.arrow_back_ios_new, color: Colors.white,),),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
