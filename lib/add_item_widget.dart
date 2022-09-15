@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:stones/boxes.dart';
 import 'package:stones/colors.dart';
@@ -18,6 +20,17 @@ class AddScreenWidget extends StatefulWidget {
 }
 
 class AddScreenWidgetState extends State<AddScreenWidget> {
+
+  // void initFireBase() async{
+  //   WidgetsFlutterBinding.ensureInitialized();
+  //   await Firebase.initializeApp();
+  // }
+  //
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   initFireBase();
+  // }
 
 
   @override
@@ -63,20 +76,31 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
     }
 
     void _onFormSubmit() {
-      Box<Stone> stonesBox = Hive.box<Stone>(HiveBoxes.stones);
-      stonesBox.add(Stone(image: stoneImage,
-                            name: stoneName,
-                            color: stoneColor,
-                            price: stonePrice,
-                            location: stoneLocation));
-      {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const MainScreenWidget()),
-        );
-      };
+      // Box<Stone> stonesBox = Hive.box<Stone>(HiveBoxes.stones);
+      // stonesBox.add(Stone(image: stoneImage,
+      //                       name: stoneName,
+      //                       color: stoneColor,
+      //                       price: stonePrice,
+      //                       location: stoneLocation));
+      // {
+      //   Navigator.push(
+      //     context,
+      //     MaterialPageRoute(builder: (context) => const MainScreenWidget()),
+      //   );
+      // };
+      //
+      // print(stonesBox);
+      FirebaseFirestore.instance.collection('stones').add({
+        'image': stoneImage,
+        'name': stoneName,
+        'color': stoneColor,
+      'price': stonePrice,
+      'location': stoneLocation});
 
-      print(stonesBox);
+      Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const MainScreenWidget()),
+            );
 
     }
 
@@ -126,17 +150,35 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children:  [
                 const SizedBox(height: 10),
-                TextButton(
-                    onPressed: back,
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(beachGreen),
-                        foregroundColor: MaterialStateProperty.all(Colors.white),
-                        textStyle: MaterialStateProperty.all(
-                          const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                Row(
+                  children: [
+                    TextButton(
+                        onPressed: back,
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(beachGreen),
+                            foregroundColor: MaterialStateProperty.all(Colors.white),
+                            textStyle: MaterialStateProperty.all(
+                              const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 15, vertical: 5))
                         ),
-                        padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 15, vertical: 5))
-                    ),
-                    child: const Text('Back')),
+                        child: const Text('Back')),
+                    const SizedBox(width: 30,),
+                    TextButton(
+                        onPressed: () {
+                          _onFormSubmit();
+                        },
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(beachGreen),
+                            foregroundColor: MaterialStateProperty.all(Colors.white),
+                            textStyle: MaterialStateProperty.all(
+                              const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 15, vertical: 5))
+                        ),
+                        child: const Text('Add')),
+                  ],
+                ),
                 const SizedBox(height: 10),
                 const Text('Image:', style: textStyle,),
                 TextField(
@@ -193,19 +235,23 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
                   },
                 ),
                 const SizedBox(height: 20,),
-                TextButton(
-                    onPressed: () {
-                      _onFormSubmit();
-                    },
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(beachGreen),
-                        foregroundColor: MaterialStateProperty.all(Colors.white),
-                        textStyle: MaterialStateProperty.all(
-                          const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                Row(
+                  children: [
+                    TextButton(
+                        onPressed: () {
+                          _onFormSubmit();
+                        },
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(beachGreen),
+                            foregroundColor: MaterialStateProperty.all(Colors.white),
+                            textStyle: MaterialStateProperty.all(
+                              const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                            ),
+                            padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 15, vertical: 5))
                         ),
-                        padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 15, vertical: 5))
-                    ),
-                    child: const Text('Add')),
+                        child: const Text('Add')),
+                  ],
+                ),
               ],
             ),
           ),

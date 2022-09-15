@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "147272546482",
+    "project_id": "stones-63261",
+    "storage_bucket": "stones-63261.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:147272546482:android:db05c7a3c86cadd98af1ab",
+        "android_client_info": {
+          "package_name": "com.example.stones"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "147272546482-p7d50kbr8kg7bk4qhvh70vt8aghv46pi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAlTsVT5loNnXxv7_wZCgbAJu3u4kW2icY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "147272546482-p7d50kbr8kg7bk4qhvh70vt8aghv46pi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

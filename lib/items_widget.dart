@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -17,6 +19,7 @@ class ItemsWidget extends StatefulWidget {
 class ItemsWidgetState extends State<ItemsWidget> {
 
 
+
   @override
   void dispose() {
     Hive.close();
@@ -27,19 +30,14 @@ class ItemsWidgetState extends State<ItemsWidget> {
   @override
 
   Widget build(BuildContext context) {
-    return ValueListenableBuilder(
-      valueListenable: Hive.box<Stone>(HiveBoxes.stones).listenable(),
-      builder: (context, Box<Stone> box, _) {
-        if (box.values.isEmpty) {
-          return const Center(
-            child: Text('Is Empty'),
-          );
-        }
+    return StreamBuilder(
+      stream: FirebaseFirestore.instance.collection('stones').snapshots(),
+        builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
+        if (!snapshot.hasData) return Text('No data');
         return ListView.builder(
-            itemCount: box.values.length,
+            itemCount: snapshot.data?.docs.length,
             itemExtent: 120,
             itemBuilder: (BuildContext context, int index) {
-              Stone? res = box.getAt(index);
               return Stack(
                 children: [
                   Padding(
@@ -80,7 +78,7 @@ class ItemsWidgetState extends State<ItemsWidget> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children:  [
                                       const SizedBox(height: 5,),
-                                      Text(res!.name,
+                                      Text(snapshot.data?.docs[index].get('name'),
                                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22, fontFamily: 'Combo', color: Colors.white),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,),
@@ -88,7 +86,7 @@ class ItemsWidgetState extends State<ItemsWidget> {
                                       Row(
                                         children: [
                                           Text('Color: ', style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.7))),
-                                          Text(res.color, style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)),
+                                          Text(snapshot.data?.docs[index].get('color'), style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold)),
                                         ],
                                       ),
                                       const SizedBox(height: 5,),
@@ -96,7 +94,7 @@ class ItemsWidgetState extends State<ItemsWidget> {
                                       Row(
                                         children: [
                                           Text('From: ', style: TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.7))),
-                                          Text(res.location,
+                                          Text(snapshot.data?.docs[index].get('location'),
                                             style: const TextStyle(fontSize: 14, color: Colors.white, fontWeight: FontWeight.bold),
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,),
@@ -117,23 +115,23 @@ class ItemsWidgetState extends State<ItemsWidget> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 1),
                                         decoration: BoxDecoration(
-                                          borderRadius: const BorderRadius.all(
-                                              Radius.circular(20)),
-                                          border: Border.all(width: 1, color: Colors.grey),
-                                          color: Colors.white.withOpacity(0.2),
-                                          boxShadow: [
-                                            BoxShadow(
-                                              color: Colors.grey.withOpacity(0.8),
-                                              spreadRadius: 1,
-                                              blurRadius: 5,
-                                            )
-                                          ]
+                                            borderRadius: const BorderRadius.all(
+                                                Radius.circular(20)),
+                                            border: Border.all(width: 1, color: Colors.grey),
+                                            color: Colors.white.withOpacity(0.2),
+                                            boxShadow: [
+                                              BoxShadow(
+                                                color: Colors.grey.withOpacity(0.8),
+                                                spreadRadius: 1,
+                                                blurRadius: 5,
+                                              )
+                                            ]
                                         ),
                                         child: Row(
                                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                           children: [
                                             Text('\$ ', style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(0.7))),
-                                            Text(res.price, style: const TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold))
+                                            Text(snapshot.data?.docs[index].get('price'), style: const TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold))
                                           ],
                                         ),
                                       ),
@@ -158,7 +156,7 @@ class ItemsWidgetState extends State<ItemsWidget> {
                       color: Colors.transparent,
                       child: ClipRRect(
                           borderRadius: BorderRadius.circular(10),
-                          child: Image(image: AssetImage(res.image))),
+                          child: Image(image: AssetImage(snapshot.data?.docs[index].get('image')))),
                     ),
                   ),
                   InkWell(
@@ -180,7 +178,7 @@ class ItemsWidgetState extends State<ItemsWidget> {
                                 child: const Text('Edit')),
                             const SizedBox(width: 30,),
                             TextButton(onPressed: () {
-                              res.delete();
+                              FirebaseFirestore.instance.collection('stones').doc(snapshot.data?.docs[index].id).delete();
                               Navigator.of(context).pop();
                             },
                                 child: const Text('Delete')),
@@ -193,9 +191,7 @@ class ItemsWidgetState extends State<ItemsWidget> {
                 ],
               );
             });
-      },
-
-    );
+        });
   }
 }
 

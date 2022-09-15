@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-const darkBlue = Color(0xff0D2DA2);
-const lightBlue = Color(0xff4F93FE);
-const darkWhite = Color(0xffFFFFDB);
-const darkYellow = Color(0xffFDEA6E);
-const darkGrey = Color(0xff7F7F80);
+const kBlack = Color(0xff1c1920);
+const kDarkGrey = Color(0xff484757);
+const kBlue = Color(0xff9da8c0);
+const kGrey = Color(0xffdbdfea);
+const kWhite = Color(0xffeff5fa);
 
 const stonePink = Color(0xffFA448C);
 const stoneYellow = Color(0xffFEC859);

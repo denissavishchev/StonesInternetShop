@@ -38,6 +38,8 @@ class _AuthWidgetState extends State<AuthWidget> {
 
   }
 
+
+
   @override
   Widget build(BuildContext context) {
 
@@ -48,10 +50,10 @@ class _AuthWidgetState extends State<AuthWidget> {
 
     const textFieldDecoration = InputDecoration(
       enabledBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: beachBlue, width: 1),
+        borderSide: BorderSide(color: kBlue, width: 1),
       ),
       focusedBorder: OutlineInputBorder(
-        borderSide: BorderSide(color: beachBlue, width: 2),
+        borderSide: BorderSide(color: kBlue, width: 2),
       ),
       border: OutlineInputBorder(),
 
@@ -75,16 +77,16 @@ class _AuthWidgetState extends State<AuthWidget> {
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(40),
             child: AppBar(
-              backgroundColor: beachTurquoise,
+              backgroundColor: kBlack.withOpacity(0.6),
               title: Container(
                 height: 40,
                 // color: Colors.indigo,
                 alignment: Alignment.center,
                 child: const Text('Login or ...',
                   style: TextStyle(
-                    fontFamily: '28days',
+                    fontFamily: 'Combo',
                     fontSize: 32,
-                    color: Colors.white,
+                    color: kWhite,
                   ),),
               ),
             ),
@@ -94,10 +96,10 @@ class _AuthWidgetState extends State<AuthWidget> {
             padding: const EdgeInsets.symmetric(horizontal: 10),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(10),
-              border: Border.all(color: beachTurquoise.withOpacity(0.7)),
+              border: Border.all(color: kBlue.withOpacity(0.7)),
               boxShadow: [
                 BoxShadow(
-                  color: beachSand.withOpacity(0.4),
+                  color: kGrey.withOpacity(0.4),
                   // blurRadius: 8,
                   // offset: const Offset(-5, 2),
                 ),
@@ -114,15 +116,16 @@ class _AuthWidgetState extends State<AuthWidget> {
                   controller: _loginTextController,
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
-                  cursorColor: beachBlue,
+                  cursorColor: kBlue,
                 ),
                 const SizedBox(height: 20,),
                 const Text('Password:', style: textStyle,),
                 TextField(
+                  obscureText: true,
                   controller: _passwordTextController,
                   decoration: textFieldDecoration,
                   style: const TextStyle(color: Colors.white),
-                  cursorColor:beachBlue,
+                  cursorColor:kBlue,
                 ),
                 const SizedBox(height: 20,),
                 Row(
@@ -130,7 +133,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                     TextButton(
                         onPressed: _auth,
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(beachBlue),
+                          backgroundColor: MaterialStateProperty.all(kBlack.withOpacity(0.8)),
                           foregroundColor: MaterialStateProperty.all(Colors.white),
                           textStyle: MaterialStateProperty.all(
                             const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
@@ -142,7 +145,7 @@ class _AuthWidgetState extends State<AuthWidget> {
                     TextButton(
                         onPressed: () {},
                         style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(beachBlue),
+                            backgroundColor: MaterialStateProperty.all(kBlack.withOpacity(0.8)),
                             foregroundColor: MaterialStateProperty.all(Colors.white),
                             textStyle: MaterialStateProperty.all(
                               const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),

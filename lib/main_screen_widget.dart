@@ -5,7 +5,7 @@ import 'package:stones/add_button.dart';
 import 'package:stones/colors.dart';
 import 'package:stones/items_widget.dart';
 import 'package:stones/sidebar_tiles.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'add_item_widget.dart';
 import 'auth_widget.dart';
 
