@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'colors.dart';
+import 'items_widget.dart';
 import 'main_screen_widget.dart';
 
 class ItemPage extends StatefulWidget {
@@ -22,6 +23,7 @@ class _ItemPageState extends State<ItemPage> {
     setState(() {
       isPressed = !isPressed;
     });
+
 }
   @override
 
@@ -119,9 +121,9 @@ class _ItemPageState extends State<ItemPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
-                              const Text(
-                                'Energy Doctor',
-                                style: TextStyle(
+                              Text(
+                                ItemsWidgetState.stoneNa,
+                                style: const TextStyle(
                                     color: Colors.white,
                                     fontWeight: FontWeight.bold,
                                     fontSize: 28,
@@ -426,7 +428,7 @@ class _ItemPageState extends State<ItemPage> {
                       child: SizedBox(
                         width: 400,
                           height: 400,
-                          child: Image.asset('assets/images/stone01.png')),
+                          child: Image.asset(ItemsWidgetState.stoneIm)),
                     ),
                   ],
                 ),

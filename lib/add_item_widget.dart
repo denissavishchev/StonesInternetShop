@@ -235,23 +235,7 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
                   },
                 ),
                 const SizedBox(height: 20,),
-                Row(
-                  children: [
-                    TextButton(
-                        onPressed: () {
-                          _onFormSubmit();
-                        },
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(beachGreen),
-                            foregroundColor: MaterialStateProperty.all(Colors.white),
-                            textStyle: MaterialStateProperty.all(
-                              const TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                            ),
-                            padding: MaterialStateProperty.all(const EdgeInsets.symmetric(horizontal: 15, vertical: 5))
-                        ),
-                        child: const Text('Add')),
-                  ],
-                ),
+
               ],
             ),
           ),

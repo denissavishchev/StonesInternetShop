@@ -7,6 +7,7 @@ import 'package:stones/boxes.dart';
 import 'package:stones/colors.dart';
 import 'package:stones/models/stones.dart';
 import 'package:stones/item_page.dart';
+import 'dart:math';
 
 
 class ItemsWidget extends StatefulWidget {
@@ -17,6 +18,7 @@ class ItemsWidget extends StatefulWidget {
 }
 
 class ItemsWidgetState extends State<ItemsWidget> {
+  
 
 
 
@@ -24,6 +26,23 @@ class ItemsWidgetState extends State<ItemsWidget> {
   void dispose() {
     Hive.close();
     super.dispose();
+  }
+
+  static String stoneIm = '';
+  static String stoneNa = '';
+
+
+
+
+  void toItem (String stoneImage, String stoneName) {
+    setState(() {
+      Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => ItemPage()),
+          );
+      stoneIm = stoneImage;
+      stoneNa = stoneName;
+    });
   }
 
 
@@ -162,10 +181,15 @@ class ItemsWidgetState extends State<ItemsWidget> {
                   InkWell(
                     borderRadius: BorderRadius.circular(10),
                     onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => ItemPage()),
+                      toItem(
+                          snapshot.data?.docs[index].get('image'),
+                          snapshot.data?.docs[index].get('name'),
                       );
+
+                      // Navigator.push(
+                      //   context,
+                      //   MaterialPageRoute(builder: (context) => ItemPage()),
+                      // );
                     },
                     onLongPress: () {
                       showDialog(

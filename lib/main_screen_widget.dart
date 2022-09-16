@@ -172,7 +172,8 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
                         CircleAvatar(
                           radius: 25,
                             backgroundColor: Colors.grey.withOpacity(0.3),
-                            child: IconButton(onPressed: () {}, icon: Icon(Icons.shopping_basket_outlined, color: Colors.white,)))
+                            child: IconButton(onPressed: () {}, icon: Icon(Icons.shopping_basket_outlined, color: Colors.white,))),
+
                       ],
                     ),
                   ),
