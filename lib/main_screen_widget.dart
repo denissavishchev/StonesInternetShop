@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:stones/add_button.dart';
 import 'package:stones/colors.dart';
 import 'package:stones/items_widget.dart';

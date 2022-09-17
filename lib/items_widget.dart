@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:stones/boxes.dart';
 import 'package:stones/colors.dart';
-import 'package:stones/models/stones.dart';
 import 'package:stones/item_page.dart';
-import 'dart:math';
 
 
 class ItemsWidget extends StatefulWidget {
@@ -18,15 +13,7 @@ class ItemsWidget extends StatefulWidget {
 }
 
 class ItemsWidgetState extends State<ItemsWidget> {
-  
 
-
-
-  @override
-  void dispose() {
-    Hive.close();
-    super.dispose();
-  }
 
   static String stoneIm = '';
   static String stoneNa = '';

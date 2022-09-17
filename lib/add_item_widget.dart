@@ -1,12 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:stones/boxes.dart';
 import 'package:stones/colors.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:stones/models/stones.dart';
-
 import 'main_screen_widget.dart';
 
 
@@ -20,17 +15,6 @@ class AddScreenWidget extends StatefulWidget {
 }
 
 class AddScreenWidgetState extends State<AddScreenWidget> {
-
-  // void initFireBase() async{
-  //   WidgetsFlutterBinding.ensureInitialized();
-  //   await Firebase.initializeApp();
-  // }
-  //
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   initFireBase();
-  // }
 
 
   @override
@@ -76,20 +60,6 @@ class AddScreenWidgetState extends State<AddScreenWidget> {
     }
 
     void _onFormSubmit() {
-      // Box<Stone> stonesBox = Hive.box<Stone>(HiveBoxes.stones);
-      // stonesBox.add(Stone(image: stoneImage,
-      //                       name: stoneName,
-      //                       color: stoneColor,
-      //                       price: stonePrice,
-      //                       location: stoneLocation));
-      // {
-      //   Navigator.push(
-      //     context,
-      //     MaterialPageRoute(builder: (context) => const MainScreenWidget()),
-      //   );
-      // };
-      //
-      // print(stonesBox);
       FirebaseFirestore.instance.collection('stones').add({
         'image': stoneImage,
         'name': stoneName,
