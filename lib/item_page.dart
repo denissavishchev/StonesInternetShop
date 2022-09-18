@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -25,6 +26,19 @@ class _ItemPageState extends State<ItemPage> {
     });
 
 }
+
+  void addToCart() {
+    FirebaseFirestore.instance.collection('basket').add({
+      'image': ItemsWidgetState.stoneIm,
+      'name': ItemsWidgetState.stoneNa,
+      'price': ItemsWidgetState.stonePr,
+});
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => const MainScreenWidget()),
+    );
+  }
   @override
 
 
@@ -438,6 +452,46 @@ class _ItemPageState extends State<ItemPage> {
                   width: MediaQuery.of(context).size.width,
                   height: 100,
                   color: Colors.white.withOpacity(0.1),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: 200,
+                        color: Colors.transparent,
+                      ),
+                      InkWell(
+                        onTap: addToCart,
+                        child: Container(
+                          height: 100,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(20),
+                              ),
+                              color: Colors.white.withOpacity(0.2),
+                              border: Border.all(
+                                  width: 1, color: Colors.white.withOpacity(
+                                  0.5))),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            children: [
+                              const Text('Add to Cart', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+                              Row(
+                                children: [
+                                  const SizedBox(width: 5,),
+                                  const Icon(Icons.arrow_right_outlined, color: Colors.deepOrange, size: 30,),
+                                  Expanded(
+                                      child: SizedBox(
+                                          height: 30,
+                                          child: Image.asset('assets/images/basket/cart.png'))),
+                                  const SizedBox(width: 5,),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ],

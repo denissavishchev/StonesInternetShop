@@ -17,11 +17,12 @@ class ItemsWidgetState extends State<ItemsWidget> {
 
   static String stoneIm = '';
   static String stoneNa = '';
+  static String stonePr = '';
 
 
 
 
-  void toItem (String stoneImage, String stoneName) {
+  void toItem (String stoneImage, String stoneName, String stonePrice) {
     setState(() {
       Navigator.push(
             context,
@@ -29,6 +30,7 @@ class ItemsWidgetState extends State<ItemsWidget> {
           );
       stoneIm = stoneImage;
       stoneNa = stoneName;
+      stonePr = stonePrice;
     });
   }
 
@@ -171,6 +173,7 @@ class ItemsWidgetState extends State<ItemsWidget> {
                       toItem(
                           snapshot.data?.docs[index].get('image'),
                           snapshot.data?.docs[index].get('name'),
+                          snapshot.data?.docs[index].get('price'),
                       );
 
                       // Navigator.push(
