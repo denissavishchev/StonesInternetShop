@@ -13,6 +13,8 @@ class BasketItemsWidget extends StatefulWidget {
 
 class BasketItemsWidgetState extends State<BasketItemsWidget> {
 
+
+
   @override
 
   Widget build(BuildContext context) {
@@ -48,9 +50,9 @@ class BasketItemsWidgetState extends State<BasketItemsWidget> {
                               child: Column(
                                 children: [
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const SizedBox(width: 60,),
+                                      const SizedBox(width: 120,),
                                       Text(snapshot.data?.docs[index].get('name'),
                                         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 26, fontFamily: 'Combo', color: Colors.white),
                                         maxLines: 1,
@@ -59,40 +61,45 @@ class BasketItemsWidgetState extends State<BasketItemsWidget> {
                                       Padding(
                                         padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
                                         child: Column(
-                                          children: [
-                                            const SizedBox(height: 5,),
-                                            Container(
-                                              width: 60,
-                                              height: 30,
-                                              decoration: BoxDecoration(
-                                                  borderRadius: const BorderRadius.all(
-                                                      Radius.circular(20)),
-                                                  border: Border.all(width: 1, color: Colors.grey),
-                                                  color: Colors.white.withOpacity(0.2),
-                                                  boxShadow: [
-                                                    BoxShadow(
-                                                      color: Colors.grey.withOpacity(0.8),
-                                                      spreadRadius: 1,
-                                                      blurRadius: 5,
-                                                    )
-                                                  ]
-                                              ),
-                                              child: Row(
-                                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                                children: [
-                                                  Text('\$ ', style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(0.7))),
-                                                  Text(snapshot.data?.docs[index].get('price'), style: const TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold)),
-                                                ],
-                                              ),
-                                            ),
+                                          children: const [
+                                            SizedBox(height: 5,),
                                           ],
                                         ),
                                       ),
-                                      IconButton(
-                                        onPressed: () {
-                                          FirebaseFirestore.instance.collection('basket').doc(snapshot.data?.docs[index].id).delete();
-                                        },
-                                        icon: const Icon(Icons.dangerous_outlined), color: Colors.deepOrange,)
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.end,
+                                        children: [
+                                          Container(
+                                            width: 60,
+                                            height: 30,
+                                            decoration: BoxDecoration(
+                                                borderRadius: const BorderRadius.all(
+                                                    Radius.circular(20)),
+                                                border: Border.all(width: 1, color: Colors.grey),
+                                                color: Colors.white.withOpacity(0.2),
+                                                boxShadow: [
+                                                  BoxShadow(
+                                                    color: Colors.grey.withOpacity(0.8),
+                                                    spreadRadius: 1,
+                                                    blurRadius: 5,
+                                                  )
+                                                ]
+                                            ),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                              children: [
+                                                Text('\$ ', style: TextStyle(fontSize: 18, color: Colors.white.withOpacity(0.7))),
+                                                Text(snapshot.data?.docs[index].get('price'), style: const TextStyle(fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold)),
+                                              ],
+                                            ),
+                                          ),
+                                          IconButton(
+                                            onPressed: () {
+                                              FirebaseFirestore.instance.collection('basket').doc(snapshot.data?.docs[index].id).delete();
+                                            },
+                                            icon: const Icon(Icons.dangerous_outlined), color: Colors.deepOrange,),
+                                        ],
+                                      ),
                                     ],
                                   ),
                                   Container(

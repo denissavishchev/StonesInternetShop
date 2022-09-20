@@ -7,7 +7,8 @@ import 'main_screen_widget.dart';
 import 'package:stones/colors.dart';
 
 class BasketScreen extends StatefulWidget {
-  const BasketScreen({Key? key}) : super(key: key);
+  int initialPage;
+  BasketScreen({Key? key, required this.initialPage}) : super(key: key);
 
   @override
   State<BasketScreen> createState() => BasketScreenState();
@@ -16,6 +17,9 @@ class BasketScreen extends StatefulWidget {
 int selectedTab = 0;
 
 class BasketScreenState extends State<BasketScreen> with SingleTickerProviderStateMixin{
+
+
+
   void back() {
     setState(() {
       Navigator.push(
@@ -31,7 +35,14 @@ class BasketScreenState extends State<BasketScreen> with SingleTickerProviderSta
     return StreamBuilder(
         stream: FirebaseFirestore.instance.collection('basket').snapshots(),
     builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-      if (!snapshot.hasData) return Text('No data');
+      if (!snapshot.hasData) {
+        return const MaterialApp(
+          home: Center(
+            child: CircularProgressIndicator(
+            ),
+          ),
+        );
+      }
       return MaterialApp(
         home: SafeArea(
           child: DefaultTabController(
@@ -45,12 +56,12 @@ class BasketScreenState extends State<BasketScreen> with SingleTickerProviderSta
                 ),
                 width: double.infinity,
                 height: double.infinity,
-                child: const TabBarView(
+                child: TabBarView(
                   children: [
                     BasketCartPage(),
-                    Icon(Icons.monitor),
-                    Icon(Icons.garage),
-                    Icon(Icons.person),
+                    Icon(Icons.monitor, color: Colors.white,),
+                    Icon(Icons.garage, color: Colors.white,),
+                    Icon(Icons.person, color: Colors.white,),
                   ],
                 ),
               ),
@@ -146,12 +157,10 @@ class BasketScreenState extends State<BasketScreen> with SingleTickerProviderSta
                             alignment: Alignment.center,
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 8),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(
                                     Radius.circular(10)),
-                                color: selectedTab == 0
-                                    ? kBlue.withOpacity(0.7)
-                                    : Colors.transparent,
+                                color: Colors.transparent,
                               ),
 
                               child: Row(
@@ -172,12 +181,10 @@ class BasketScreenState extends State<BasketScreen> with SingleTickerProviderSta
                             alignment: Alignment.center,
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 8),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(
                                     Radius.circular(10)),
-                                color: selectedTab == 1
-                                    ? kBlue.withOpacity(0.7)
-                                    : Colors.transparent,
+                                color: Colors.transparent,
                               ),
 
                               child: Row(
@@ -198,12 +205,10 @@ class BasketScreenState extends State<BasketScreen> with SingleTickerProviderSta
                             alignment: Alignment.center,
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 8),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(
                                     Radius.circular(10)),
-                                color: selectedTab == 2
-                                    ? kBlue.withOpacity(0.7)
-                                    : Colors.transparent,
+                                color: Colors.transparent,
                               ),
 
                               child: Row(
@@ -224,12 +229,10 @@ class BasketScreenState extends State<BasketScreen> with SingleTickerProviderSta
                             alignment: Alignment.center,
                             child: Container(
                               padding: const EdgeInsets.symmetric(vertical: 10),
-                              decoration: BoxDecoration(
-                                borderRadius: const BorderRadius.all(
+                              decoration: const BoxDecoration(
+                                borderRadius: BorderRadius.all(
                                     Radius.circular(10)),
-                                color: selectedTab == 3
-                                    ? kBlue.withOpacity(0.7)
-                                    : Colors.transparent,
+                                color: Colors.transparent,
                               ),
 
                               child: Row(

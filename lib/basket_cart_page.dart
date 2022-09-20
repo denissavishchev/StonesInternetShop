@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:stones/basket_page.dart';
 import 'package:stones/colors.dart';
@@ -12,8 +13,34 @@ class BasketCartPage extends StatefulWidget {
   State<BasketCartPage> createState() => _BasketCartPageState();
 }
 
-class _BasketCartPageState extends State<BasketCartPage> {
+class _BasketCartPageState extends State<BasketCartPage> with SingleTickerProviderStateMixin{
 
+  void toAddress(){
+    print('object');
+    setState(() {
+      DefaultTabController.of(context)?.animateTo(1);
+    });
+
+  }
+
+  int total = 0;
+  void totalPrice() {
+
+      FirebaseFirestore.instance.collection('basket').get().then((querySnapshot) {
+        for (var element in querySnapshot.docs) {
+          // print(element['price'].toString());
+          total = total + int.parse(element['price']);
+        }
+        // print(total.toString());
+        setState(() {});
+      });
+
+    }
+  @override
+  void initState() {
+    totalPrice();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -192,14 +219,14 @@ class _BasketCartPageState extends State<BasketCartPage> {
                           width: 1, color: Colors.white.withOpacity(0.5))),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const [
+                    children:  [
                       Text(
                         'Total Price',
                         style: TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white),
                       ),
                       Text(
-                        '\$ 243',
+                        '\$ $total',
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
@@ -210,7 +237,7 @@ class _BasketCartPageState extends State<BasketCartPage> {
                 ),
                 Expanded(
                   child: InkWell(
-                    onTap: () {},
+                    onTap: toAddress,
                     child: Container(
                       height: MediaQuery.of(context).size.height,
                         decoration: BoxDecoration(

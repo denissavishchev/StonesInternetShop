@@ -20,8 +20,6 @@ class ItemsWidgetState extends State<ItemsWidget> {
   static String stonePr = '';
 
 
-
-
   void toItem (String stoneImage, String stoneName, String stonePrice) {
     setState(() {
       Navigator.push(
@@ -36,7 +34,6 @@ class ItemsWidgetState extends State<ItemsWidget> {
 
 
   @override
-
   Widget build(BuildContext context) {
     return StreamBuilder(
       stream: FirebaseFirestore.instance.collection('stones').snapshots(),

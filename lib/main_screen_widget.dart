@@ -37,7 +37,7 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
       setState(() {
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const BasketScreen()),
+          MaterialPageRoute(builder: (context) => BasketScreen(initialPage: 2,)),
         );
       });
     }
@@ -64,7 +64,13 @@ class _MainScreenWidgetState extends State<MainScreenWidget> {
     return StreamBuilder(
         stream: FirebaseFirestore.instance.collection('basket').snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
-          if (!snapshot.hasData) return Text('No data');
+          if (!snapshot.hasData) {
+            return const MaterialApp(
+              home: Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
       return MaterialApp(
         title: 'Stones',
         home: SafeArea(
